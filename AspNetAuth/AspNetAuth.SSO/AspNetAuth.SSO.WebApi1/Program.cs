@@ -18,6 +18,7 @@ public class Program
         builder.Configuration.Bind("JwtToken", jwtTokenOptions);
 
         // 注册jwt验证, 请求头中需要带上Authorization: Bearer {token}
+        // 注意：若使用minimal api，需指定使用的鉴权方案，比如.RequireAuthorization(new AuthorizeAttribute{ AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme });，否则不会使用，默认401不通过
 
         // 对称加密
         {
