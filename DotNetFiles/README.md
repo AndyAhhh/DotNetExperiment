@@ -88,6 +88,20 @@ ThreadPool.QueueUserWorkItem(async (obj) =>
 
 * 接口方法或抽象方法不能修饰为async
 
+* await后支持ConfigureAwait()，可以传入ConfigureAwaitOptions控制异步行为
+
+  ```c#
+  await Task.Delay(1000).ConfigureAwait(ConfigureAwaitOptions.None);
+  ```
+
+  > 1.ConfigureAwaitOptions.None：与ConfigureAwait(false)一致，表示不捕获上下文，异步方法将在任意可用线程池线程上继续执行。适用于后台任务或不依赖特定上下文的操作。
+  >
+  > 2.ConfigureAwaitOptions.ContinueOnCapturedContext：与ConfigureAwait(true)一致，在捕获的上下文中继续执行异步方法，适用于需要在特定上下文（如 UI 线程）中恢复执行的场景。
+  >
+  > 3.ConfigureAwaitOptions.SuppressThrowing：此选项抑制await时可能抛出的异常。通常用于忽略任务的失败状态，例如CancellationToken的取消或错误，而只关心任务是否完成。
+  >
+  > 4.ConfigureAwaitOptions.ForceYielding：强制让出当前线程并异步恢复执行，适用于需要避免堆栈过深或强制异步行为的场景。
+
 ### 4.yield
 
 yield关键字属于语法糖，使用它可以让代码具有更高可读性和更好性能，当我们需要返回IEnumerable类型的时候，直接yield返回数据就可以了
@@ -158,6 +172,12 @@ static async Task Main(string[] args)
 
 ### 6.框架定义特性
 
+* required，必须字段使用其解析，当类实例化字段未被填充时，编辑器报错，从而确保字段被填充
+
+```c#
+public required string Name { get; init; }
+```
+
 * Conditional
 
 ```c#
@@ -199,6 +219,43 @@ static void Main(string[] args)
 static void Printf([CallerFilePath] string callerFilePath = "", [CallerMemberName] string callerMemberName = "", [CallerLineNumber] int callerLineNumber = 0)
 {
     Console.WriteLine($"CallerFilePath:{callerFilePath}, CallerMemberName:{callerMemberName}, CallerLineNumber:{callerLineNumber}");
+}
+```
+
+* CallerArgumentExpression
+
+```c#
+/// <summary>
+/// 打印调用方信息
+/// </summary>
+/// <param name="callerArgumentExpression">参数</param>
+/// <param name="expression">获调用方传递的表达式</param>
+/// <exception cref="ArgumentException"></exception>
+static void NotEmpty(string? callerArgumentExpression, [CallerArgumentExpression(nameof(callerArgumentExpression))] string? expression = null)
+{
+    if (string.IsNullOrWhiteSpace(callerArgumentExpression))
+        throw new ArgumentException($"Invalid value: {expression}");
+}
+```
+
+* NotNullWhen
+
+```c#
+/// <summary>
+/// 只要返回true，编译器就相信user不为 null
+/// </summary>
+public static bool TryGetUser(int id, [NotNullWhen(true)] out object? user)
+{
+    if (id > 0)
+    {
+        user = new object();
+        return true;
+    }
+    else
+    {
+        user = null;
+        return false;
+    }
 }
 ```
 
