@@ -10,9 +10,9 @@ namespace DotNetAI.SemanticKernel;
 // 使用阿里云百炼托管的大模型服务取代本地大模型服务
 internal class Program
 {
-    const string API_KEY = "sk-0d10b1fef51846c6b1881ef0a53b4f0e";
+    const string API_KEY = "sk-571bebd792974f0f84c529e13ba61296";
     const string URL = "https://dashscope.aliyuncs.com/compatible-mode/v1";
-    const string MODEL = "qwen-turbo";// 文本生成模型
+    const string MODEL = "qwen3.6-plus";// 文本生成模型
     //const string MODEL = "qvq-plus";// 图片理解模型
 
     static async Task Main(string[] args)
@@ -532,8 +532,8 @@ public class LightsPlugin
     private readonly List<LightModel> _lights =
     [
         new LightModel { Id = 1, Name = "客厅灯", IsOn = false },
-            new LightModel { Id = 2, Name = "卧室灯", IsOn = true },
-            new LightModel { Id = 3, Name = "厨房灯", IsOn = false }
+        new LightModel { Id = 2, Name = "卧室灯", IsOn = true },
+        new LightModel { Id = 3, Name = "厨房灯", IsOn = false }
     ];
 
     // 只有具有KernelFunction特性的函数才会发送到模型
