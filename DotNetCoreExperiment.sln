@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
+# Visual Studio Version 18
+VisualStudioVersion = 18.5.11723.231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetAccessMongoDB", "AspNetAccessMongoDB\AspNetAccessMongoDB.csproj", "{B5E76DA8-9A60-464D-9C94-73B25C17A379}"
 EndProject
@@ -267,6 +267,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleTemplate", "SampleTem
 	ProjectSection(SolutionItems) = preProject
 		DotNetTemplate\content\SampleTemplate\placeholder.txt = DotNetTemplate\content\SampleTemplate\placeholder.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotNetCAP", "DotNetCAP", "{D564B78B-9804-4776-8567-E8EC102F2709}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCAP", "DotNetCAP\AspNetCAP\AspNetCAP.csproj", "{95AD44AD-BB6D-667C-8F68-76C2BB7FAA8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -614,6 +618,10 @@ Global
 		{F6B9B65A-A425-4350-BA3F-EC7ED7F18003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6B9B65A-A425-4350-BA3F-EC7ED7F18003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6B9B65A-A425-4350-BA3F-EC7ED7F18003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95AD44AD-BB6D-667C-8F68-76C2BB7FAA8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95AD44AD-BB6D-667C-8F68-76C2BB7FAA8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95AD44AD-BB6D-667C-8F68-76C2BB7FAA8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95AD44AD-BB6D-667C-8F68-76C2BB7FAA8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -701,6 +709,7 @@ Global
 		{F6B9B65A-A425-4350-BA3F-EC7ED7F18003} = {7D172252-EE20-425D-9018-8130B35B5437}
 		{584294C6-8B89-4FC2-8C93-129F0BE94F26} = {31046E54-8323-4B41-AB05-2F1E48C1BF2C}
 		{82D32945-BA48-4BCD-8EF3-6FBCAD6577F4} = {584294C6-8B89-4FC2-8C93-129F0BE94F26}
+		{95AD44AD-BB6D-667C-8F68-76C2BB7FAA8D} = {D564B78B-9804-4776-8567-E8EC102F2709}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A6B72B4-0A0E-4CB4-8C72-65FA2178875B}
