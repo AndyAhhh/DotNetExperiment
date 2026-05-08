@@ -1,6 +1,4 @@
 ﻿using RabbitMQ.Client;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace DotNetRabbitMQ.ModeDemo.Utils;
 
