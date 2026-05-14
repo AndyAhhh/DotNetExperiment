@@ -33,7 +33,7 @@ class Program
         otel.WithMetrics(metrics => metrics
             // Metrics provider from OpenTelemetry
             .AddAspNetCoreInstrumentation()
-            // Metrics provides by ASP.NET Core in .NET 8
+            // Metrics provides by ASP.NET Core in .NET 10
             .AddMeter("Microsoft.AspNetCore.Hosting")
             .AddMeter("Microsoft.AspNetCore.Server.Kestrel")
             .AddMeter(customMeter.Name)
