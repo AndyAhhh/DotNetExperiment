@@ -37,6 +37,7 @@ class Program
             .AddMeter("Microsoft.AspNetCore.Hosting")
             .AddMeter("Microsoft.AspNetCore.Server.Kestrel")
             .AddMeter(customMeter.Name)
+            .AddMeter(nameof(OrderService))
             .AddConsoleExporter()
         /* Add custom exporter
         .AddReader(new PeriodicExportingMetricReader(new CustomMetricExporter(), 3000)
@@ -52,6 +53,8 @@ class Program
             tracing.AddAspNetCoreInstrumentation();
             tracing.AddHttpClientInstrumentation();
             tracing.AddSource(customActivitySource.Name);
+            tracing.AddSource(nameof(OrderService));
+            tracing.SetSampler(new ParentBasedSampler(new AlwaysOnSampler()));
             if (tracingOtlpEndpoint != null)
             {
                 tracing.AddOtlpExporter(otlpOptions =>
@@ -61,6 +64,10 @@ class Program
             }
             else tracing.AddConsoleExporter();
         });
+
+        // Services or Modules use OpenTelemetry
+        builder.Services.AddSingleton<OrderTelemetry>();
+        builder.Services.AddSingleton<OrderService>();
 
         var app = builder.Build();
 
@@ -73,6 +80,8 @@ class Program
 
             return "Hello World!";
         });
+
+        app.MapGet("/order", (OrderService orderService) => orderService.CreateOrderAsync("user123", 99.99m));
 
         app.Run();
     }
