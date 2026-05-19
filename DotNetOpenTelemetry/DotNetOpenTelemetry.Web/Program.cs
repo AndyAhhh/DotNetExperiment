@@ -1,4 +1,5 @@
 ﻿using OpenTelemetry;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -23,6 +24,7 @@ class Program
         var customActivitySource = new ActivitySource("Custom.Example");
 
         var builder = WebApplication.CreateBuilder(args);
+
         var tracingOtlpEndpoint = builder.Configuration["OTLP_ENDPOINT_URL"];
         var otel = builder.Services.AddOpenTelemetry();
 
@@ -38,7 +40,10 @@ class Program
             .AddMeter("Microsoft.AspNetCore.Server.Kestrel")
             .AddMeter(customMeter.Name)
             .AddMeter(nameof(OrderService))
-            .AddConsoleExporter()
+            .AddConsoleExporter((exporterOptions, metricReaderOptions) =>
+            {
+                metricReaderOptions.PeriodicExportingMetricReaderOptions.ExportIntervalMilliseconds = 1000;
+            })
         /* Add custom exporter
         .AddReader(new PeriodicExportingMetricReader(new CustomMetricExporter(), 3000)
         {
@@ -63,6 +68,13 @@ class Program
                 });
             }
             else tracing.AddConsoleExporter();
+        });
+
+        // Configure OpenTelemetry Logging
+        builder.Logging.ClearProviders();
+        otel.WithLogging(logging =>
+        {
+            logging.AddConsoleExporter();
         });
 
         // Services or Modules use OpenTelemetry
